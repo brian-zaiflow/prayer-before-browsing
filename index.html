@@ -230,25 +230,13 @@
                 instruction: 'Pray this three times before continuing.'
             },
             {
-                text: 'For this is the will of God, your sanctification: that you abstain from sexual immorality, that each one of you know how to control his own body in holiness and honor, not in the passion of lust like the Gentiles who do not know God.',
-                instruction: '1 Thessalonians 4:3\u20135'
-            },
-            {
-                text: 'Create in me a clean heart, O God,<br>and renew a right spirit within me.',
-                instruction: 'Psalm 50:12'
+                text: 'For this is the will of God, your sanctification: that you abstain from sexual immorality, that each one of you know how to control his own body in holiness and honor.',
+                instruction: '1 Thessalonians 4:3\u20134'
             },
             {
                 text: 'Be my soul\u2019s helper, O good God, for I walk in the midst of many snares. Deliver me from them and save me in Thy love for mankind.',
                 instruction: 'Pray this once before continuing.'
             },
-            {
-                text: 'O Lord and Master of my life, give me not a spirit of sloth, despair, lust of power, and idle talk. But give rather a spirit of chastity, humility, patience, and love to Thy servant.',
-                instruction: 'Pray once with a prostration.'
-            },
-            {
-                text: 'Master and Lord, do not allow any temptation or sorrow or sickness which is beyond my strength to come upon me, but rather deliver me from them, or else give me the might to bear them with thanksgiving.',
-                instruction: 'Pray this once before continuing.'
-            }
         ];
 
         // Read index, display prayer, advance for next visit
@@ -277,18 +265,7 @@
         }, 1000);
 
         function continueBrowsing() {
-            window.close();
-
-            setTimeout(() => {
-                document.body.innerHTML = `
-                    <div style="display:flex;align-items:center;justify-content:center;height:100dvh;text-align:center;padding:2rem;">
-                        <p style="font-family:'EB Garamond',Georgia,serif;color:#7a6f63;font-size:1.1rem;line-height:1.6;">
-                            You may now close this tab<br>and continue browsing.<br><br>
-                            <em>Go in peace.</em>
-                        </p>
-                    </div>
-                `;
-            }, 100);
+            window.open('about:blank', '_self');
         }
 
         // Register service worker
