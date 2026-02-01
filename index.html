@@ -7,10 +7,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Before You Browse</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1612">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+    </noscript>
     <style>
         * {
             margin: 0;
@@ -201,32 +206,13 @@
 
     <div class="container">
         <div class="icon-frame">
-            <!-- 
-                Replace the placeholder below with your own icon.
-                Option 1: Replace src with a URL to an icon image
-                Option 2: Save an icon as "icon.jpg" or "icon.png" in the same folder
-                
-                Example:
-                <img src="icon.jpg" alt="Christ Pantocrator">
-            -->
-
-            <!-- Using a public domain icon - Christ Pantocrator from Sinai -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Spas_vsederzhitel_sinay.jpg/800px-Spas_vsederzhitel_sinay.jpg"
-                alt="Christ Pantocrator"
+            <img src="pantocrator.jpg" alt="Christ Pantocrator" width="400" height="746"
                 onerror="this.parentElement.innerHTML='<div class=\'icon-placeholder\'></div>'">
         </div>
 
         <div class="prayer">
-            <p class="prayer-text">
-                Lord Jesus Christ,<br>
-                Son of God,<br>
-                have mercy on me,<br>
-                <em>a sinner.</em>
-            </p>
-
-            <p class="instruction">
-                Pray this three times before continuing.
-            </p>
+            <p class="prayer-text" id="prayerText"></p>
+            <p class="instruction" id="instruction"></p>
         </div>
 
         <div class="timer" id="timer">Wait 15 seconds...</div>
@@ -237,6 +223,40 @@
     </div>
 
     <script>
+        // Prayer rotation
+        const PRAYERS = [
+            {
+                text: 'Lord Jesus Christ,<br>Son of God,<br>have mercy on me,<br><em>a sinner.</em>',
+                instruction: 'Pray this three times before continuing.'
+            },
+            {
+                text: 'For this is the will of God, your sanctification: that you abstain from sexual immorality, that each one of you know how to control his own body in holiness and honor, not in the passion of lust like the Gentiles who do not know God.',
+                instruction: '1 Thessalonians 4:3\u20135'
+            },
+            {
+                text: 'Create in me a clean heart, O God,<br>and renew a right spirit within me.',
+                instruction: 'Psalm 50:12'
+            },
+            {
+                text: 'Be my soul\u2019s helper, O good God, for I walk in the midst of many snares. Deliver me from them and save me in Thy love for mankind.',
+                instruction: 'Pray this once before continuing.'
+            },
+            {
+                text: 'O Lord and Master of my life, give me not a spirit of sloth, despair, lust of power, and idle talk. But give rather a spirit of chastity, humility, patience, and love to Thy servant.',
+                instruction: 'Pray once with a prostration.'
+            },
+            {
+                text: 'Master and Lord, do not allow any temptation or sorrow or sickness which is beyond my strength to come upon me, but rather deliver me from them, or else give me the might to bear them with thanksgiving.',
+                instruction: 'Pray this once before continuing.'
+            }
+        ];
+
+        // Read index, display prayer, advance for next visit
+        const idx = parseInt(localStorage.getItem('prayerIndex') || '0', 10) % PRAYERS.length;
+        document.getElementById('prayerText').innerHTML = PRAYERS[idx].text;
+        document.getElementById('instruction').textContent = PRAYERS[idx].instruction;
+        localStorage.setItem('prayerIndex', String((idx + 1) % PRAYERS.length));
+
         // Configuration
         const WAIT_SECONDS = 15;
 
@@ -257,11 +277,8 @@
         }, 1000);
 
         function continueBrowsing() {
-            // Option 1: Just close this tab (user returns to Safari)
             window.close();
 
-            // Option 2: If window.close() doesn't work (often blocked),
-            // redirect to a blank page or show a message
             setTimeout(() => {
                 document.body.innerHTML = `
                     <div style="display:flex;align-items:center;justify-content:center;height:100dvh;text-align:center;padding:2rem;">
@@ -272,6 +289,11 @@
                     </div>
                 `;
             }, 100);
+        }
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
         }
     </script>
 </body>

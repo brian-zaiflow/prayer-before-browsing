@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="64" fill="#1a1612"/>
+  <!-- Orthodox three-bar cross -->
+  <g fill="#8b7355">
+    <!-- Top bar (shortest) -->
+    <rect x="206" y="80" width="100" height="16" rx="4"/>
+    <!-- Middle bar (longest / main crossbar) -->
+    <rect x="156" y="160" width="200" height="16" rx="4"/>
+    <!-- Bottom bar (slanted via transform) -->
+    <rect x="181" y="340" width="150" height="16" rx="4" transform="rotate(-20, 256, 348)"/>
+    <!-- Vertical beam -->
+    <rect x="240" y="60" width="32" height="360" rx="6"/>
+  </g>
+</svg>
