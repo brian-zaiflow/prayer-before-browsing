@@ -1,11 +1,12 @@
-const CACHE_NAME = 'prayer-v3';
+const CACHE_NAME = 'prayer-v4';
 
 const PRECACHE_URLS = [
   './',
   './index.html',
   './manifest.json',
   './icon.svg',
-  './pantocrator.jpg'
+  './pantocrator.jpg',
+  './pantocrator-hagia-sophia.jpg'
 ];
 
 // Install: precache local assets

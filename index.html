@@ -206,8 +206,12 @@
 
     <div class="container">
         <div class="icon-frame">
-            <img src="pantocrator.jpg" alt="Christ Pantocrator" width="400" height="746"
+            <img id="icon" alt="Christ Pantocrator"
                 onerror="this.parentElement.innerHTML='<div class=\'icon-placeholder\'></div>'">
+            <script>
+                const icons = ['pantocrator.jpg', 'pantocrator-hagia-sophia.jpg'];
+                document.getElementById('icon').src = icons[Math.floor(Math.random() * icons.length)];
+            </script>
         </div>
 
         <div class="prayer">
