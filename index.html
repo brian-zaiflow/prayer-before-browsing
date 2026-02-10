@@ -132,34 +132,17 @@
             animation: fadeIn 1s ease-out 1s forwards;
         }
 
-        .continue-btn {
+        .dismissal {
             margin-top: 2rem;
-            padding: 0.9rem 2.5rem;
-            font-family: 'EB Garamond', Georgia, serif;
-            font-size: 1.1rem;
-            background: transparent;
-            border: 1px solid #5a4d3d;
-            color: #7a6f63;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #c9a227;
             opacity: 0;
-            pointer-events: none;
+            letter-spacing: 0.03em;
         }
 
-        .continue-btn.active {
-            opacity: 1;
-            pointer-events: auto;
-            border-color: #8b7355;
-            color: #d4c8b8;
-        }
-
-        .continue-btn.active:hover {
-            background: rgba(139, 115, 85, 0.15);
-        }
-
-        .continue-btn.active:active {
-            transform: scale(0.98);
+        .dismissal.active {
+            animation: fadeIn 1.5s ease-out forwards;
         }
 
         @keyframes fadeIn {
@@ -222,9 +205,7 @@
 
         <div class="timer" id="timer">Wait 15 seconds...</div>
 
-        <button class="continue-btn" id="continueBtn" onclick="continueBrowsing()">
-            Continue
-        </button>
+        <p class="dismissal" id="dismissal">Go, and sin no more.</p>
     </div>
 
     <script>
@@ -242,6 +223,10 @@
                 text: 'Be my soul\u2019s helper, O good God, for I walk in the midst of many snares. Deliver me from them and save me in Thy love for mankind.',
                 instruction: 'Pray this once before continuing.'
             },
+            {
+                text: 'For freedom Christ has set us free; stand firm therefore, and do not submit again to a yoke of slavery.',
+                instruction: 'Galatians 5:1'
+            },
         ];
 
         // Read index, display prayer, advance for next visit
@@ -255,7 +240,7 @@
 
         let countdown = WAIT_SECONDS;
         const timerEl = document.getElementById('timer');
-        const btnEl = document.getElementById('continueBtn');
+        const dismissalEl = document.getElementById('dismissal');
 
         const interval = setInterval(() => {
             countdown--;
@@ -264,14 +249,10 @@
                 timerEl.textContent = `Wait ${countdown} second${countdown !== 1 ? 's' : ''}...`;
             } else {
                 clearInterval(interval);
-                timerEl.textContent = 'You may continue.';
-                btnEl.classList.add('active');
+                timerEl.textContent = '';
+                dismissalEl.classList.add('active');
             }
         }, 1000);
-
-        function continueBrowsing() {
-            window.open('about:blank', '_self');
-        }
 
         // Register service worker
         if ('serviceWorker' in navigator) {

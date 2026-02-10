@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prayer-v4';
+const CACHE_NAME = 'prayer-v5';
 
 const PRECACHE_URLS = [
   './',
